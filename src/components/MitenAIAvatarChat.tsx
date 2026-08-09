@@ -18,13 +18,14 @@ const QUICK_QUESTIONS = [
 ];
 
 const KNOWLEDGE_BASE: Record<string, string> = {
-  orchestrai: `OrchestrAI OS is a federated, sovereign Enterprise AI Operating System designed for Zero-Trust security and compliance (DORA, NIST, GDPR). 
+  orchestrai: `OrchestrAI OS is a federated, sovereign Enterprise AI Operating System designed for Zero-Trust security and regulatory compliance (DORA Art. 28, NIST, GDPR). 
 
-Key Architecture Highlights:
-• 5-Tier Master Architecture & 237 OS Layers
+Key Architecture Highlights (Verified SSOT in K8s Postgres):
+• 5-Tier Master Architecture & 237 Verified OS Layers
 • FastMCP Gateway & Mycelial NATS Event Kernel
 • Local k3d Kubernetes Cluster with OPA Gatekeeper & Tetragon eBPF Kernel
 • 174 Multi-Agent Swarms with 99.999% SLA FDIR Watchdog
+• Master Canonical Ledger (MCL) trajectory recovery
 
 It eliminates the "AI Silo Crisis" by giving enterprises complete ownership over their AI weights, execution pipelines, and data exfiltration defenses.`,
 

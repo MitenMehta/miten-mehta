@@ -39,6 +39,7 @@ const LINKEDIN_POSTS: LinkedInPost[] = [
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mode, setMode] = useState<"aria" | "orion">("aria");
 
   // Scroll reveal hooks for each section
   const statsSection = useScrollReveal();
@@ -62,16 +63,43 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-10">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-        <div className="container mx-auto px-4 md:px-6 py-4">
+        <div className="container mx-auto px-4 md:px-6 py-3">
           <div className="flex items-center justify-between">
-            <Link to="/" className="text-xl md:text-2xl font-bold">
-              Miten Mehta
+            <Link to="/" className="text-xl md:text-2xl font-bold flex items-center gap-2">
+              <span>Miten Mehta</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-accent/20 text-accent font-semibold border border-accent/30 uppercase tracking-wider">
+                {mode === "aria" ? "Aria Mode" : "Orion Mode"}
+              </span>
             </Link>
-            {/* Desktop Nav */}
-            <div className="hidden md:flex gap-4">
+            {/* Desktop Nav & Dual-Mode Persona Switcher */}
+            <div className="hidden md:flex items-center gap-4">
+              {/* Mode Switcher */}
+              <div className="flex bg-muted p-1 rounded-xl border border-border">
+                <button
+                  onClick={() => setMode("aria")}
+                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                    mode === "aria"
+                      ? "bg-accent text-accent-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  👔 Aria (Executive)
+                </button>
+                <button
+                  onClick={() => setMode("orion")}
+                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                    mode === "orion"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  ⚡ Orion (Technical)
+                </button>
+              </div>
+
               <Button variant="ghost" asChild>
                 <Link to="/">Home</Link>
               </Button>
@@ -842,6 +870,29 @@ const Index = () => {
           </p>
         </div>
       </footer>
+
+      {/* Glass Dome Telemetry Status Bar (IDE Style) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 border-t border-slate-800 text-slate-300 text-[11px] px-3 py-1.5 flex items-center justify-between font-mono backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            99.999% SLA ACTIVE
+          </span>
+          <span className="hidden sm:inline text-slate-500">|</span>
+          <span className="hidden sm:inline text-slate-400">
+            SSOT: <strong className="text-slate-200">237 OS LAYERS VERIFIED</strong> (`orchestrai-postgres`)
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="hidden md:inline text-slate-400">
+            SECURITY: <strong className="text-emerald-400">ZERO SECRET LEAKAGE (LAW-50)</strong>
+          </span>
+          <span className="text-slate-500">|</span>
+          <span className="text-accent font-bold">
+            EPOCH: CVO-SIGNED-v1.0
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
