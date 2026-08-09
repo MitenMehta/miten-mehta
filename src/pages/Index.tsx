@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import mitenPhoto from "@/assets/miten-mehta-photo.jpeg";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Link } from "react-router-dom";
+import { MitenAIAvatarChat } from "@/components/MitenAIAvatarChat";
 
 interface LinkedInPost {
   id: string;
@@ -829,6 +830,9 @@ const Index = () => {
           </div>
         </Card>
       </section>
+
+      {/* Interactive AI Knowledge Avatar */}
+      <MitenAIAvatarChat />
 
       {/* Footer */}
       <footer className="py-6 md:py-8 bg-primary text-primary-foreground">
