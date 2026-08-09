@@ -132,11 +132,11 @@ const Index = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
                 Miten Mehta
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl mb-4 md:mb-6 text-primary-foreground/90">
-                US Citizen | ex-Google
+              <p className="text-lg sm:text-xl md:text-2xl mb-4 md:mb-6 text-primary-foreground/90 font-medium">
+                Chief AI Officer | Sovereign Agentic AI Architect | Ex-Google Cloud
               </p>
               <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 leading-relaxed text-primary-foreground/80">
-                C Suite Leader | P&L, GTM & Growth | AI, Web3 & Tech Innovator
+                $760M+ Capital Formation & P&L Executive | Author & Hon. Professor @ KIIT | Davos WEF Speaker
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 mb-6 md:mb-8 justify-center lg:justify-start">
@@ -704,24 +704,67 @@ const Index = () => {
         </section>
       )}
 
-      {/* Thought Leadership */}
+      {/* Books, IP & Academic Leadership */}
       <section
         ref={thoughtSection.ref}
         className={`py-12 md:py-20 bg-gradient-hero transition-all duration-700 ${thoughtSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
       >
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-primary-foreground">Thought Leadership</h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-primary-foreground/90">
-            <Card className="p-4 md:p-6 bg-primary-foreground/15 border-primary-foreground/30 shadow-elegant w-full md:w-auto">
-              <p className="text-sm md:text-lg font-semibold text-primary-foreground">Digital India ONDC Fund ($200M)</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary-foreground">Books, IP & Academic Leadership</h2>
+          <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 md:mb-12">
+            Pioneering research in Enterprise Agentic AI, Digital Trust Frameworks, and Startup Economics.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6 text-left mb-12">
+            <Card className="p-6 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground shadow-elegant hover:bg-primary-foreground/15 transition-all">
+              <span className="text-xs uppercase tracking-wider text-accent font-semibold">Latest Publication (2026)</span>
+              <h3 className="text-xl font-bold mt-2 mb-3">Trust in the Age of Agentic AI Economy</h3>
+              <p className="text-sm text-primary-foreground/80 mb-4">
+                A 24-chapter blueprint for enterprise AI deployment without governance friction. Co-authored with Nisharg Nargund & Prof. Suresh Chandra Satapathy.
+              </p>
+              <div className="text-xs font-medium text-accent">24 Chapters • Digital Trust Stack • 90-Day Roadmap</div>
             </Card>
-            <Card className="p-4 md:p-6 bg-primary-foreground/15 border-primary-foreground/30 shadow-elegant w-full md:w-auto">
-              <p className="text-sm md:text-lg font-semibold text-primary-foreground">Author of Agentic AI Playbook</p>
+
+            <Card className="p-6 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground shadow-elegant hover:bg-primary-foreground/15 transition-all">
+              <span className="text-xs uppercase tracking-wider text-accent font-semibold">Published Book</span>
+              <h3 className="text-xl font-bold mt-2 mb-3">Rama in the Startup Exile</h3>
+              <p className="text-sm text-primary-foreground/80 mb-4">
+                Published by Notion Press & available on Amazon. A narrative guide on navigating startup adversity, capital formation, and resilience.
+              </p>
+              <a href="https://www.amazon.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs font-semibold text-accent hover:underline">
+                Available on Amazon <ExternalLink className="ml-1 w-3 h-3" />
+              </a>
             </Card>
-            <Card className="p-4 md:p-6 bg-primary-foreground/15 border-primary-foreground/30 shadow-elegant w-full md:w-auto">
-              <p className="text-sm md:text-lg font-semibold text-primary-foreground">Keynote Speaker & LinkedIn Top Voice</p>
+
+            <Card className="p-6 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground shadow-elegant hover:bg-primary-foreground/15 transition-all">
+              <span className="text-xs uppercase tracking-wider text-accent font-semibold">Academic & Global Keynotes</span>
+              <h3 className="text-xl font-bold mt-2 mb-3">Hon. Professor @ KIIT & Davos Speaker</h3>
+              <p className="text-sm text-primary-foreground/80 mb-4">
+                Honorary Professor at Kalinga Institute of Industrial Technology (KIIT). Keynote speaker at Davos World Economic Forum (WEF), Forbes Tech & MIT Connection Science.
+              </p>
+              <div className="text-xs font-medium text-accent">KIIT University • WEF Davos • Forbes Tech</div>
             </Card>
+          </div>
+
+          {/* GitHub Ecosystem Showcase */}
+          <div className="max-w-4xl mx-auto p-6 md:p-8 bg-primary-foreground/10 border border-primary-foreground/20 rounded-2xl text-primary-foreground text-center">
+            <h3 className="text-xl md:text-2xl font-bold mb-2">Sovereign Open Source Architecture</h3>
+            <p className="text-sm md:text-base text-primary-foreground/80 mb-6 max-w-xl mx-auto">
+              Architect of OrchestrAI OS — an open-source, federated multi-agent AI operating system for Zero-Trust enterprise security.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button variant="secondary" size="default" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-md" asChild>
+                <a href="https://github.com/MitenMehta/miten-mehta" target="_blank" rel="noopener noreferrer">
+                  <Globe className="mr-2 h-4 w-4" /> Personal GitHub Repo
+                </a>
+              </Button>
+              <Button variant="outline" size="default" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/20" asChild>
+                <a href="https://github.com/orchestrai-os/orchestrai" target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="mr-2 h-4 w-4" /> OrchestrAI OS Ecosystem
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
