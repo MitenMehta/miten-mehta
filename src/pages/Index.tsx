@@ -418,7 +418,7 @@ const Index = () => {
         </p>
 
         <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-          {['PlaySpan (Visa)', 'JPM (Good)', 'Hubilo', 'EthX', 'NuPay', 'FloxyPay', 'CopperWire', 'Koinbasket'].map((company) => (
+          {['PlaySpan (Visa)', 'JPM (Good)', 'Hubilo', 'EthX', 'NuPay', 'MondeeONE', 'CopperWire', 'Koinbasket'].map((company) => (
             <Card key={company} className="px-3 py-2 md:px-6 md:py-3 shadow-card hover:shadow-elegant transition-all">
               <p className="font-semibold text-sm md:text-base">{company}</p>
             </Card>
