@@ -262,7 +262,7 @@ const Index = () => {
             Leverage 30+ years of leadership experience, skills, strategic relationships and ecosystem network to build, grow and scale capital efficient, profitable, sustainable and impact driven institutions.
           </p>
           <p className="text-lg leading-relaxed text-foreground/90 mt-4">
-            C Suite leader: in high growth companies or operating partner at Private Equity, Venture Capital, Family Offices, applying deep expertise in Generative AI, Agentic AI, Blockchain, Web3, Digital Transformation, and Global Ecosystem building for value creation.
+            C Suite leader: in high growth companies or operating partner at Private Equity, Venture Capital, Family Offices, applying deep expertise in Generative AI, Agentic AI, Enterprise AI Governance, Digital Transformation, and Global Ecosystem building for value creation.
           </p>
         </Card>
 
@@ -358,7 +358,7 @@ const Index = () => {
             <Card className="p-4 md:p-8 shadow-card">
               <h3 className="text-base md:text-xl font-bold mb-3 md:mb-4 flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-accent flex-shrink-0" />
-                Tokenized systems
+                High-Concurrency Distributed Systems
               </h3>
               <p className="text-sm md:text-base text-foreground/80">
                 2x creator retention, 3x transaction velocity
@@ -596,10 +596,10 @@ const Index = () => {
               'Agentic AI & Autonomous Systems',
               'Multi-Agent Orchestration',
               'Domain Language Models',
-              'Web3 & DeFi',
-              'Smart Contracts',
-              'Tokenomics',
-              'TGEs & SAFT Structures',
+              'Decentralized Financial Systems',
+              'Smart Contract Architecture',
+              'FinTech Infrastructure',
+              'Digital Asset Governance',
               'Digital Public Infrastructure',
               'Go-to-Market Strategy',
               'Strategic Partnerships',
@@ -639,14 +639,14 @@ const Index = () => {
           <Card className="p-4 md:p-8 shadow-card hover:shadow-elegant transition-all">
             <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-primary">Capital Markets</h3>
             <p className="text-sm md:text-base text-foreground/80">
-              IPO preparation, M&A execution, institutional investor relations, crypto fundraising
+              IPO preparation, M&A execution, institutional investor relations, capital formation
             </p>
           </Card>
 
           <Card className="p-4 md:p-8 shadow-card hover:shadow-elegant transition-all">
             <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 text-primary">Technology</h3>
             <p className="text-sm md:text-base text-foreground/80">
-              Agentic AI deployment, Web3/blockchain architecture, smart contracts, tokenomics
+              Agentic AI deployment, Sovereign Multi-Agent architecture, Smart Contract Security, FinTech Infrastructure
             </p>
           </Card>
 
