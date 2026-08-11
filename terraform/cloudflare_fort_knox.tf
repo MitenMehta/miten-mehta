@@ -50,7 +50,7 @@ resource "cloudflare_zone_dnssec" "mitenmehta_dnssec" {
 resource "cloudflare_record" "mitenmehta_dmarc" {
   zone_id = "b1f89cabe4c6a8399e4c1bc5e5d03208"
   name    = "_dmarc"
-  content = "v=DMARC1; p=none; rua=mailto:dmarc@mitenmehta.com; ruf=mailto:dmarc@mitenmehta.com"
+  content = "v=DMARC1; p=quarantine; rua=mailto:mitennmehta@gmail.com; ruf=mailto:mitennmehta@gmail.com; fo=1"
   type    = "TXT"
   ttl     = 1
 }
@@ -88,7 +88,7 @@ resource "cloudflare_zone_dnssec" "orchestraios_dnssec" {
 resource "cloudflare_record" "orchestraios_dmarc" {
   zone_id = "7763596e33e27868517a6364e99a3ffb"
   name    = "_dmarc"
-  content = "v=DMARC1; p=none; rua=mailto:dmarc@orchestraios.com; ruf=mailto:dmarc@orchestraios.com"
+  content = "v=DMARC1; p=quarantine; rua=mailto:admin@orchestraios.com; ruf=mailto:admin@orchestraios.com; fo=1"
   type    = "TXT"
   ttl     = 1
 }
@@ -126,7 +126,7 @@ resource "cloudflare_zone_dnssec" "finmesh_dnssec" {
 resource "cloudflare_record" "finmesh_dmarc" {
   zone_id = "e88266b2e8f3f776d7cbdd54fa7ec498"
   name    = "_dmarc"
-  content = "v=DMARC1; p=none; rua=mailto:dmarc@finmesh.app; ruf=mailto:dmarc@finmesh.app"
+  content = "v=DMARC1; p=quarantine; rua=mailto:mitennmehta@gmail.com; ruf=mailto:mitennmehta@gmail.com; fo=1"
   type    = "TXT"
   ttl     = 1
 }
