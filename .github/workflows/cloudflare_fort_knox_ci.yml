@@ -5,38 +5,46 @@ on:
     branches:
       - main
   schedule:
-    # Run daily at 00:00 UTC to detect configuration drift
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *' # Daily at midnight UTC
   workflow_dispatch:
 
 jobs:
-  audit-and-harden:
-    name: Audit & Harden Cloudflare Zones
+  audit-and-apply:
+    name: Audit, Validate & Apply Infrastructure
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
         with:
-          python-version: '3.10'
+          tofu_version: 1.8.1
 
-      - name: Audit mitenmehta.com & orchestraios.com
+      - name: Initialize OpenTofu
+        working-directory: ./terraform
+        run: tofu init -backend=false
+
+      - name: Validate OpenTofu HCL
+        working-directory: ./terraform
+        run: tofu validate
+
+      - name: Run OpenTofu Plan & Apply
+        working-directory: ./terraform
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "[+] Executing live tofu apply..."
+            tofu apply -auto-approve -lock=false
+          else
+            echo "[!] CF_API_TOKEN secret not set. Skipping live tofu apply."
+          fi
+
+      - name: Run 22-Point Security Audit
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
         run: |
-          python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_autonomous_audit.py
-
-      - name: Enforce Zone Hardening (mitenmehta.com)
-        env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: |
-          python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_harden_generic.py --domain mitenmehta.com --force
-
-      - name: Enforce Zone Hardening (orchestraios.com)
-        env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: |
-          python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_harden_generic.py --domain orchestraios.com --force
+          python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_22_point_live_audit.py

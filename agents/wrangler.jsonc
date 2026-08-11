@@ -1,39 +1,36 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "orchestrai-edge-gateway",
-  "main": "orchestrai_edge_gateway.ts",
+  "main": "src/edge_gateway.ts",
   "compatibility_date": "2026-07-15",
   "compatibility_flags": ["nodejs_compat"],
   "durable_objects": {
     "bindings": [
       {
-        "name": "OrchestrAIGateway",
-        "class_name": "OrchestrAIGateway"
+        "name": "OrchestrAIAgent",
+        "class_name": "OrchestrAIAgent"
       }
     ]
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["OrchestrAIGateway"]
+      "new_sqlite_classes": ["OrchestrAIAgent"]
     }
   ],
   "vectorize": [
     {
-      "binding": "VECTORIZE_INDEX",
+      "binding": "VECTORIZE",
       "index_name": "orchestrai-cvo-rag"
     }
   ],
-  "workflows": [
+  "d1_databases": [
     {
-      "name": "orchestrai-durable-workflow",
-      "binding": "ORCHESTRAI_WORKFLOW",
-      "class_name": "OrchestrAIWorkflow"
+      "binding": "DB",
+      "database_name": "orchestrai-sessions",
+      "database_id": "947cf9fe-1801-47a5-87d1-353d3921b35a"
     }
   ],
-  "ai": {
-    "binding": "AI"
-  },
   "observability": {
     "enabled": true
   },
