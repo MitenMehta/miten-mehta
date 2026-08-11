@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 OrchestrAI OS — Sovereign 22-Point Cloudflare Hardening Audit Engine
-Probes and audits all 22 security points for mitenmehta.com and orchestraios.com.
+Probes and audits all 22 security points across mitenmehta.com, orchestraios.com, and finmesh.app.
 """
 
 import sys
@@ -11,7 +11,7 @@ import time
 import urllib.request
 import urllib.parse
 
-DOMAINS = ["mitenmehta.com", "orchestraios.com"]
+DOMAINS = ["mitenmehta.com", "orchestraios.com", "finmesh.app"]
 
 def get_cf_token():
     wrangler_path = os.path.expanduser("~/.wrangler/config/default.toml")
@@ -97,7 +97,7 @@ def main():
     with open(out_file, "w") as f:
         json.dump(report, f, indent=2)
 
-    print(f"\n[+] 22-Point Audit Complete! Saved to {out_file}")
+    print(f"\n[+] 22-Point Audit Complete across 3 Domains! Saved to {out_file}")
 
 if __name__ == "__main__":
     main()
