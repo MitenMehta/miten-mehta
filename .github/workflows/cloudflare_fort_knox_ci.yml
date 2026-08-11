@@ -34,9 +34,10 @@ jobs:
         working-directory: ./terraform
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: |
-          if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+          if [ -n "$CF_API_TOKEN" ]; then
             echo "[+] Executing live tofu apply..."
             tofu apply -auto-approve -lock=false
           else
@@ -48,3 +49,4 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
         run: |
           python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_22_point_live_audit.py
+
