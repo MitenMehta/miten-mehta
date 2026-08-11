@@ -4,7 +4,7 @@
       "command": "npx",
       "args": ["-y", "@cloudflare/mcp-server-cloudflare"],
       "env": {
-        "CLOUDFLARE_ACCOUNT_ID": "046e3f2201dc5c956e093873dc704b63",
+        "CLOUDFLARE_ACCOUNT_ID": "${CF_ACCOUNT_ID}",
         "CLOUDFLARE_API_TOKEN": "${CF_API_TOKEN}"
       },
       "description": "Native Cloudflare MCP Server providing AGY & Ewaya direct control over 2,500+ Cloudflare API endpoints (DNS, WAF, SSL, Pages, Workers, R2, AI Gateway)."
