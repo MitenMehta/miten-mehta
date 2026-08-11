@@ -2,31 +2,51 @@
 """
 OrchestrAI OS — Sovereign 22-Point Cloudflare Hardening Audit Engine
 Probes and audits all 22 security points across mitenmehta.com, orchestraios.com, and finmesh.app.
+Auto-refreshes OAuth credentials via Wrangler CLI if needed.
 """
 
 import sys
 import os
 import json
 import time
+import subprocess
 import urllib.request
 import urllib.parse
 
 DOMAINS = ["mitenmehta.com", "orchestraios.com", "finmesh.app"]
 
+def refresh_wrangler_token():
+    try:
+        subprocess.run("wrangler whoami", shell=True, capture_output=True, text=True)
+    except Exception:
+        pass
+
 def get_cf_token():
+    token = os.environ.get("CF_API_TOKEN", "")
+    if token:
+        return token
+
     wrangler_path = os.path.expanduser("~/.wrangler/config/default.toml")
     if os.path.exists(wrangler_path):
         with open(wrangler_path, "r") as f:
             for line in f:
                 if line.startswith("oauth_token"):
                     return line.split("=")[1].strip().strip('"')
-    return os.environ.get("CF_API_TOKEN", "")
+
+    refresh_wrangler_token()
+    if os.path.exists(wrangler_path):
+        with open(wrangler_path, "r") as f:
+            for line in f:
+                if line.startswith("oauth_token"):
+                    return line.split("=")[1].strip().strip('"')
+    return ""
 
 def cf_api_call(endpoint, token):
     url = f"https://api.cloudflare.com/client/v4{endpoint}"
     req = urllib.request.Request(url, headers={
         "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     })
     try:
         with urllib.request.urlopen(req) as resp:
@@ -40,6 +60,12 @@ def audit_22_points(domain, token):
     print(f"==========================================================================")
 
     res = cf_api_call(f"/zones?name={domain}", token)
+    if not res.get("success") or not res.get("result"):
+        # Auto-retry with refreshed token
+        refresh_wrangler_token()
+        token = get_cf_token()
+        res = cf_api_call(f"/zones?name={domain}", token)
+
     if not res.get("success") or not res.get("result"):
         print(f"[!] Zone '{domain}' not found or API scope restricted.")
         return None
