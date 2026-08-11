@@ -26,7 +26,7 @@ resource "cloudflare_zone_settings_override" "mitenmehta_settings" {
   settings {
     ssl                      = "full"
     always_use_https         = "on"
-    min_tls_version          = "1.2"
+    min_tls_version          = "1.3" # Upgraded from 1.2 to 1.3
     tls_1_3                  = "on"
     automatic_https_rewrites = "on"
     browser_check            = "on"
@@ -55,6 +55,48 @@ resource "cloudflare_record" "mitenmehta_dmarc" {
   ttl     = 1
 }
 
+resource "cloudflare_ruleset" "mitenmehta_headers" {
+  zone_id     = "b1f89cabe4c6a8399e4c1bc5e5d03208"
+  name        = "mitenmehta-security-transform-headers"
+  description = "Security Headers Transform Ruleset (HSTS, CSP, X-Content-Type-Options, X-Frame-Options)"
+  kind        = "zone"
+  phase       = "http_response_headers_transform"
+
+  rules {
+    action = "rewrite"
+    action_parameters {
+      headers {
+        name      = "Strict-Transport-Security"
+        operation = "set"
+        value     = "max-age=31536000; includeSubDomains; preload"
+      }
+      headers {
+        name      = "X-Content-Type-Options"
+        operation = "set"
+        value     = "nosniff"
+      }
+      headers {
+        name      = "X-Frame-Options"
+        operation = "set"
+        value     = "SAMEORIGIN"
+      }
+      headers {
+        name      = "Referrer-Policy"
+        operation = "set"
+        value     = "strict-origin-when-cross-origin"
+      }
+      headers {
+        name      = "Content-Security-Policy"
+        operation = "set"
+        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+      }
+    }
+    expression  = "true"
+    description = "Enforce Strict Security Headers"
+    enabled     = true
+  }
+}
+
 # ------------------------------------------------------------------------------
 # 2. ZONE: orchestraios.com (Zone ID: 7763596e33e27868517a6364e99a3ffb)
 # ------------------------------------------------------------------------------
@@ -64,7 +106,7 @@ resource "cloudflare_zone_settings_override" "orchestraios_settings" {
   settings {
     ssl                      = "full"
     always_use_https         = "on"
-    min_tls_version          = "1.2"
+    min_tls_version          = "1.3" # Upgraded from 1.2 to 1.3
     tls_1_3                  = "on"
     automatic_https_rewrites = "on"
     browser_check            = "on"
@@ -93,6 +135,48 @@ resource "cloudflare_record" "orchestraios_dmarc" {
   ttl     = 1
 }
 
+resource "cloudflare_ruleset" "orchestraios_headers" {
+  zone_id     = "7763596e33e27868517a6364e99a3ffb"
+  name        = "orchestraios-security-transform-headers"
+  description = "Security Headers Transform Ruleset (HSTS, CSP, X-Content-Type-Options, X-Frame-Options)"
+  kind        = "zone"
+  phase       = "http_response_headers_transform"
+
+  rules {
+    action = "rewrite"
+    action_parameters {
+      headers {
+        name      = "Strict-Transport-Security"
+        operation = "set"
+        value     = "max-age=31536000; includeSubDomains; preload"
+      }
+      headers {
+        name      = "X-Content-Type-Options"
+        operation = "set"
+        value     = "nosniff"
+      }
+      headers {
+        name      = "X-Frame-Options"
+        operation = "set"
+        value     = "SAMEORIGIN"
+      }
+      headers {
+        name      = "Referrer-Policy"
+        operation = "set"
+        value     = "strict-origin-when-cross-origin"
+      }
+      headers {
+        name      = "Content-Security-Policy"
+        operation = "set"
+        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+      }
+    }
+    expression  = "true"
+    description = "Enforce Strict Security Headers"
+    enabled     = true
+  }
+}
+
 # ------------------------------------------------------------------------------
 # 3. ZONE: finmesh.app (Zone ID: e88266b2e8f3f776d7cbdd54fa7ec498)
 # ------------------------------------------------------------------------------
@@ -102,7 +186,7 @@ resource "cloudflare_zone_settings_override" "finmesh_settings" {
   settings {
     ssl                      = "full"
     always_use_https         = "on"
-    min_tls_version          = "1.2"
+    min_tls_version          = "1.3" # Upgraded from 1.2 to 1.3
     tls_1_3                  = "on"
     automatic_https_rewrites = "on"
     browser_check            = "on"
@@ -129,4 +213,46 @@ resource "cloudflare_record" "finmesh_dmarc" {
   content = "v=DMARC1; p=quarantine; rua=mailto:mitennmehta@gmail.com; ruf=mailto:mitennmehta@gmail.com; fo=1"
   type    = "TXT"
   ttl     = 1
+}
+
+resource "cloudflare_ruleset" "finmesh_headers" {
+  zone_id     = "e88266b2e8f3f776d7cbdd54fa7ec498"
+  name        = "finmesh-security-transform-headers"
+  description = "Security Headers Transform Ruleset (HSTS, CSP, X-Content-Type-Options, X-Frame-Options)"
+  kind        = "zone"
+  phase       = "http_response_headers_transform"
+
+  rules {
+    action = "rewrite"
+    action_parameters {
+      headers {
+        name      = "Strict-Transport-Security"
+        operation = "set"
+        value     = "max-age=31536000; includeSubDomains; preload"
+      }
+      headers {
+        name      = "X-Content-Type-Options"
+        operation = "set"
+        value     = "nosniff"
+      }
+      headers {
+        name      = "X-Frame-Options"
+        operation = "set"
+        value     = "SAMEORIGIN"
+      }
+      headers {
+        name      = "Referrer-Policy"
+        operation = "set"
+        value     = "strict-origin-when-cross-origin"
+      }
+      headers {
+        name      = "Content-Security-Policy"
+        operation = "set"
+        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+      }
+    }
+    expression  = "true"
+    description = "Enforce Strict Security Headers"
+    enabled     = true
+  }
 }
