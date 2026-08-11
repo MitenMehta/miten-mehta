@@ -18,6 +18,19 @@
       "new_sqlite_classes": ["OrchestrAIGateway"]
     }
   ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE_INDEX",
+      "index_name": "orchestrai-cvo-rag"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "orchestrai-durable-workflow",
+      "binding": "ORCHESTRAI_WORKFLOW",
+      "class_name": "OrchestrAIWorkflow"
+    }
+  ],
   "ai": {
     "binding": "AI"
   },
