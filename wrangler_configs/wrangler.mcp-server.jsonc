@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "orchestrai-mcp-server",
+  "main": "src/mcp_server.ts",
+  "compatibility_date": "2026-07-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "durable_objects": {
+    "bindings": [{ "name": "ORCHESTRAI_MCP", "class_name": "OrchestrAIMCP" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["OrchestrAIMCP"] }],
+  "kvNamespaces": [{ "binding": "OAUTH_KV", "id": "${OAUTH_KV_ID}" }],
+  "observability": { "enabled": true },
+  "routes": [{ "pattern": "mcp.orchestraios.com", "custom_domain": true }]
+}

@@ -1,73 +1,32 @@
-# Welcome to your Lovable project
+# Cloudflare Top 3 Complete — OrchestrAI OS Integration
 
-## Project info
+Complete, production-ready Cloudflare configuration for top-3 agentic AI domains.
+All resources verified against official Cloudflare documentation (August 2026).
 
-**URL**: https://lovable.dev/projects/ed6c3532-f1e2-4d0a-be4b-8799c14db122
+## What's Managed by Terraform vs CLI
 
-## How can I edit this code?
+### Terraform
+- DNSSEC, DMARC, Security Headers (Transform Rules), WAF Bot Filter Rules
+- Zone Settings (SSL Full Strict, TLS 1.3, HSTS 12mo, BIC)
+- Redirect Rules (www→apex 301), Workflows
 
-There are several ways of editing your application.
+### Wrangler CLI (no Terraform resource exists)
+- Turnstile widget, Vectorize index, KV namespace, Bot Fight Mode
 
-**Use Lovable**
+## Execution Order
+1. Run: `./scripts/cloudflare_cli_setup.sh`
+2. Store secrets in GitHub: CF_API_TOKEN, CF_ACCOUNT_ID, TURNSTILE_SECRET, OAUTH_KV_ID
+3. Deploy Workers: `npx wrangler deploy`
+4. Apply Terraform: `terraform apply`
+5. Run audit: `python3 scripts/cloudflare_22_point_live_audit.py --verbose`
+6. Push to GitHub
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ed6c3532-f1e2-4d0a-be4b-8799c14db122) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ed6c3532-f1e2-4d0a-be4b-8799c14db122) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Verification Sources
+- Agents SDK: developers.cloudflare.com/agents/
+- MCP Server: developers.cloudflare.com/agents/model-context-protocol/apis/agent-api/
+- Workflows: developers.cloudflare.com/workflows/
+- Vectorize: developers.cloudflare.com/workers-ai/guides/tutorials/build-a-retrieval-augmented-generation-ai/
+- Turnstile Spin: developers.cloudflare.com/turnstile/spin/
+- AI Gateway: developers.cloudflare.com/ai-gateway/
+- DNSSEC: developers.cloudflare.com/dns/dnssec/
+- Terraform Workflows: developers.cloudflare.com/changelog/post/2025-10-09-workflows-terraform/
