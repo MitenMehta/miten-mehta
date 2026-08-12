@@ -761,10 +761,11 @@ export const MitenAIWorkspaceIDE: React.FC<MitenAIWorkspaceIDEProps> = ({ mode, 
               </div>
 
               <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 space-y-3 font-mono text-xs">
-                <h4 className="font-bold text-cyan-400 uppercase tracking-wider text-[11px]">Recruiter Search & Candidate Taxonomy</h4>
+                <h4 className="font-bold text-cyan-400 uppercase tracking-wider text-[11px]">Recruiter Search & Candidate Taxonomy (2026 Algorithmic Optimization)</h4>
                 <div className="space-y-1.5 text-zinc-300">
-                  <p><span className="text-zinc-500">Target Executive Titles:</span> Chief AI Officer (CAIO) • VP/SVP Enterprise AI Strategy • Global Head of AI GTM & Alliances • Head of Agentic AI Infrastructure • Board Advisor</p>
-                  <p><span className="text-zinc-500">Core Search Keywords:</span> ISO 42001 • EU AI Act • FastMCP Trust Engine • Autonomous Revenue Engines • $107M+ Hyperscaler Co-Sell • $760M+ Capital Advisory</p>
+                  <p><span className="text-zinc-500">Target Executive Titles:</span> Chief AI Officer (CAIO) • VP/SVP Enterprise AI • Global Head of AI Solutions • Head of AI GTM & Growth • Head of AI Partnerships • Architect of Sovereign Agentic AI • Board Advisor</p>
+                  <p><span className="text-zinc-500">FOSS & Governance Clusters:</span> Sovereign AI Infrastructure • Open Source AI (FOSS) Governance • ISO 42001 & EU AI Act • Multi-Tenant AI Orchestration • FastMCP Trust Engine</p>
+                  <p><span className="text-zinc-500">Recruiter Boolean String:</span> ("Chief AI Officer" OR "CAIO" OR "VP of AI" OR "Global Head of AI") AND ("Agentic AI" OR "Sovereign AI" OR "FOSS AI") AND ("ISO 42001" OR "EU AI Act" OR "Google Cloud" OR "Board Advisor")</p>
                   <p><span className="text-zinc-500">Target Retained Search Firms:</span> Spencer Stuart • Heidrick & Struggles • Egon Zehnder • Russell Reynolds • Korn Ferry</p>
                 </div>
               </div>
