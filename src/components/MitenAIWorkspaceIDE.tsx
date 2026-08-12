@@ -760,6 +760,15 @@ export const MitenAIWorkspaceIDE: React.FC<MitenAIWorkspaceIDEProps> = ({ mode, 
                 </div>
               </div>
 
+              <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 space-y-3 font-mono text-xs">
+                <h4 className="font-bold text-cyan-400 uppercase tracking-wider text-[11px]">Recruiter Search & Candidate Taxonomy</h4>
+                <div className="space-y-1.5 text-zinc-300">
+                  <p><span className="text-zinc-500">Target Executive Titles:</span> Chief AI Officer (CAIO) • VP/SVP Enterprise AI Strategy • Global Head of AI GTM & Alliances • Head of Agentic AI Infrastructure • Board Advisor</p>
+                  <p><span className="text-zinc-500">Core Search Keywords:</span> ISO 42001 • EU AI Act • FastMCP Trust Engine • Autonomous Revenue Engines • $107M+ Hyperscaler Co-Sell • $760M+ Capital Advisory</p>
+                  <p><span className="text-zinc-500">Target Retained Search Firms:</span> Spencer Stuart • Heidrick & Struggles • Egon Zehnder • Russell Reynolds • Korn Ferry</p>
+                </div>
+              </div>
+
               <div className="space-y-2 pt-2">
                 <h4 className="font-bold text-white text-xs uppercase tracking-wider font-mono">Contact & Links</h4>
                 <div className="flex flex-wrap gap-2 text-xs font-mono">
