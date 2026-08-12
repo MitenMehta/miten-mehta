@@ -59,7 +59,7 @@ export const useTrackingCodes = () => {
           }
         });
       } catch (error) {
-        console.error("Error loading tracking codes:", error);
+        // Silently ignore when tracking codes backend table is empty or unconfigured
       }
     };
 

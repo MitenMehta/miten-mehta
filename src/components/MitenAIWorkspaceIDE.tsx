@@ -621,7 +621,14 @@ export const MitenAIWorkspaceIDE: React.FC<MitenAIWorkspaceIDEProps> = ({ mode, 
                 <div className="p-5 rounded-xl bg-zinc-900 border border-zinc-800 space-y-2">
                   <h3 className="font-bold text-white text-lg">Rama in the Startup Exile</h3>
                   <p className="text-xs text-zinc-300 leading-relaxed">
-                    Published by Notion Press / Amazon. Explores leadership resilience, ethical decision-making, and startup execution under uncertainty.
+                    Published by{" "}
+                    <a href="https://notionpress.com" target="_blank" rel="noreferrer" className="text-cyan-400 font-semibold underline hover:text-cyan-300">
+                      Notion Press
+                    </a>{" "}
+                    /{" "}
+                    <a href="https://www.amazon.com/dp/B07R1W8364" target="_blank" rel="noreferrer" className="text-cyan-400 font-semibold underline hover:text-cyan-300">
+                      Amazon
+                    </a>. Explores leadership resilience, ethical decision-making, and startup execution under uncertainty.
                   </p>
                 </div>
               </div>
@@ -703,7 +710,7 @@ export const MitenAIWorkspaceIDE: React.FC<MitenAIWorkspaceIDEProps> = ({ mode, 
 
         {/* RIGHT PANEL: CLAUDE STYLE ARTIFACT VIEWER */}
         {artifactOpen && (
-          <aside className="w-80 lg:w-96 bg-zinc-900/90 border-l border-zinc-800 flex flex-col shrink-0">
+          <aside className="w-full sm:w-80 lg:w-96 bg-zinc-900/95 border-l border-zinc-800 flex flex-col shrink-0 absolute right-0 top-0 bottom-0 z-30 lg:static shadow-2xl">
             <div className="p-3 border-b border-zinc-800 flex items-center justify-between text-xs font-mono">
               <span className="font-bold text-zinc-300 flex items-center gap-1.5">
                 <FileCode className="w-4 h-4 text-cyan-400" /> {activeArtifact.title}
@@ -744,8 +751,8 @@ export const MitenAIWorkspaceIDE: React.FC<MitenAIWorkspaceIDEProps> = ({ mode, 
               
               <div className="grid grid-cols-2 gap-3 font-mono text-xs text-zinc-300 pt-2">
                 <div className="p-3 rounded-lg bg-zinc-950 border border-zinc-800">
-                  <div className="text-zinc-500">Capital Formation</div>
-                  <div className="text-base font-bold text-emerald-400 mt-0.5">$760M+ Raised</div>
+                  <div className="text-zinc-500">Capital & Exits</div>
+                  <div className="text-base font-bold text-emerald-400 mt-0.5">$760M+ Supported</div>
                 </div>
                 <div className="p-3 rounded-lg bg-zinc-950 border border-zinc-800">
                   <div className="text-zinc-500">Hyperscaler Co-Sell</div>
