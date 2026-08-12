@@ -4,6 +4,7 @@
 resource "cloudflare_workers_script" "workers_ai_fallback" {
   account_id = var.cloudflare_account_id
   name       = "orchestrai-workers-ai-fallback"
+  module     = true
   content    = <<EOF
 export default {
   async fetch(request, env) {

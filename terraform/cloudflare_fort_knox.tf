@@ -66,6 +66,16 @@ resource "cloudflare_ruleset" "mitenmehta_headers" {
     action = "rewrite"
     action_parameters {
       headers {
+        name      = "Content-Security-Policy"
+        operation = "set"
+        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+      }
+      headers {
+        name      = "Referrer-Policy"
+        operation = "set"
+        value     = "strict-origin-when-cross-origin"
+      }
+      headers {
         name      = "Strict-Transport-Security"
         operation = "set"
         value     = "max-age=31536000; includeSubDomains; preload"
@@ -79,16 +89,6 @@ resource "cloudflare_ruleset" "mitenmehta_headers" {
         name      = "X-Frame-Options"
         operation = "set"
         value     = "SAMEORIGIN"
-      }
-      headers {
-        name      = "Referrer-Policy"
-        operation = "set"
-        value     = "strict-origin-when-cross-origin"
-      }
-      headers {
-        name      = "Content-Security-Policy"
-        operation = "set"
-        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
       }
     }
     expression  = "true"
@@ -146,6 +146,16 @@ resource "cloudflare_ruleset" "orchestraios_headers" {
     action = "rewrite"
     action_parameters {
       headers {
+        name      = "Content-Security-Policy"
+        operation = "set"
+        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+      }
+      headers {
+        name      = "Referrer-Policy"
+        operation = "set"
+        value     = "strict-origin-when-cross-origin"
+      }
+      headers {
         name      = "Strict-Transport-Security"
         operation = "set"
         value     = "max-age=31536000; includeSubDomains; preload"
@@ -159,16 +169,6 @@ resource "cloudflare_ruleset" "orchestraios_headers" {
         name      = "X-Frame-Options"
         operation = "set"
         value     = "SAMEORIGIN"
-      }
-      headers {
-        name      = "Referrer-Policy"
-        operation = "set"
-        value     = "strict-origin-when-cross-origin"
-      }
-      headers {
-        name      = "Content-Security-Policy"
-        operation = "set"
-        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
       }
     }
     expression  = "true"
@@ -226,6 +226,16 @@ resource "cloudflare_ruleset" "finmesh_headers" {
     action = "rewrite"
     action_parameters {
       headers {
+        name      = "Content-Security-Policy"
+        operation = "set"
+        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+      }
+      headers {
+        name      = "Referrer-Policy"
+        operation = "set"
+        value     = "strict-origin-when-cross-origin"
+      }
+      headers {
         name      = "Strict-Transport-Security"
         operation = "set"
         value     = "max-age=31536000; includeSubDomains; preload"
@@ -239,16 +249,6 @@ resource "cloudflare_ruleset" "finmesh_headers" {
         name      = "X-Frame-Options"
         operation = "set"
         value     = "SAMEORIGIN"
-      }
-      headers {
-        name      = "Referrer-Policy"
-        operation = "set"
-        value     = "strict-origin-when-cross-origin"
-      }
-      headers {
-        name      = "Content-Security-Policy"
-        operation = "set"
-        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
       }
     }
     expression  = "true"

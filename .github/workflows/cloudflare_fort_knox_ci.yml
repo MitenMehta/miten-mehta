@@ -22,6 +22,16 @@ jobs:
         with:
           tofu_version: 1.8.1
 
+      - name: Restore OpenTofu State
+        uses: actions/cache@v4
+        with:
+          path: |
+            terraform/terraform.tfstate
+            terraform/terraform.tfstate.backup
+          key: cloudflare-tofu-state-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            cloudflare-tofu-state-${{ github.ref_name }}-
+
       - name: Initialize OpenTofu
         working-directory: ./terraform
         run: tofu init -backend=false
@@ -29,6 +39,13 @@ jobs:
       - name: Validate OpenTofu HCL
         working-directory: ./terraform
         run: tofu validate
+
+      - name: Reconcile Existing Cloudflare Resources
+        working-directory: ./terraform
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: bash ./bootstrap_cloudflare_state.sh
 
       - name: Run OpenTofu Plan & Apply
         working-directory: ./terraform
@@ -49,4 +66,3 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
         run: |
           python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_22_point_live_audit.py
-
