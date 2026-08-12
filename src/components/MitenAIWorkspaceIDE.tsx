@@ -248,6 +248,14 @@ export const MitenAIWorkspaceIDE: React.FC<MitenAIWorkspaceIDEProps> = ({ mode, 
             </button>
           </div>
 
+          <a
+            href="/caio-executive-playbook.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="px-3 py-1 text-xs font-mono bg-cyan-950 hover:bg-cyan-900 text-cyan-200 font-bold rounded transition flex items-center gap-1.5 border border-cyan-800"
+          >
+            <FileCode className="w-3.5 h-3.5 text-cyan-400" /> Playbook (PDF)
+          </a>
           <button
             onClick={() => setProfileModalOpen(true)}
             className="px-3 py-1 text-xs font-mono bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-200 font-bold transition flex items-center gap-1.5 border border-zinc-700"
