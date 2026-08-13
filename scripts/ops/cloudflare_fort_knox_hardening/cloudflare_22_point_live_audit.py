@@ -141,7 +141,9 @@ def main():
         if audit_res:
             report["audits"].append(audit_res)
 
-    out_file = os.path.expanduser("~/OrchestrAI/scratch/cloudflare_22_point_audit_report.json")
+    report_dir = os.environ.get("CLOUDFLARE_AUDIT_DIR", "scratch")
+    os.makedirs(report_dir, exist_ok=True)
+    out_file = os.path.join(report_dir, "cloudflare_22_point_audit_report.json")
     with open(out_file, "w") as f:
         json.dump(report, f, indent=2)
 
