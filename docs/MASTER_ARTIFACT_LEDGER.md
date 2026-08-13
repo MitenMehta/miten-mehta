@@ -86,6 +86,8 @@ The Master Artifact Ledger operates as a **Twin-Engine Navigation Map**:
 | **Retroactive Session Recovery Engine** | [cvo.orchestraios.com/session-recovery](https://orchestraios.com) | [`scripts/cvo/retroactive_session_recovery.py`](file:///Users/mitenmehta/OrchestrAI/scripts/cvo/retroactive_session_recovery.py) | Recovery Tool (**LIVE**) |
 | **Master Roadmap Verifier** | [ops.orchestraios.com/roadmap-verifier](https://orchestraios.com) | [`scripts/ops/verify_roadmap.py`](file:///Users/mitenmehta/OrchestrAI/scripts/ops/verify_roadmap.py) | Roadmap Verifier (**LIVE**) |
 | **LinkedIn CDP Recommendation Automator** | [automation.mitenmehta.com/linkedin](https://mitenmehta.com) | [`scripts/automation/linkedin/cdp_request_recommendations.py`](file:///Users/mitenmehta/OrchestrAI/scripts/automation/linkedin/cdp_request_recommendations.py) | Automation Tool (**LIVE**) |
+| **Executive Headhunter Forensic Audit** | [gtm.mitenmehta.com/forensic-audit](https://mitenmehta.com) | [`docs/EXECUTIVE_HEADHUNTER_FORENSIC_AUDIT.md`](file:///Users/mitenmehta/OrchestrAI/docs/EXECUTIVE_HEADHUNTER_FORENSIC_AUDIT.md) | Headhunter Audit (**9.5/10 RATING**) |
+
 
 ### 6. Product Solutions & Customer Value Propositions
 | Artifact Title | External Public URL | Internal Code / DB Path | Category & Status |
