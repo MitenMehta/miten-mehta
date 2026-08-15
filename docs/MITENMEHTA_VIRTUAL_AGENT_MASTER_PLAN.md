@@ -1,10 +1,14 @@
 # MitenMehta.com Virtual AI Agent — Canonical Launch Plan
 
-**Document ID:** MMVA-MCL-001  
-**Status:** Canonical integration contract; implementation work in progress  
-**Repository:** `MitenMehta/miten-mehta`  
-**Integration branch:** `integrate/virtual-miten-launch`  
-**Production branch:** `main`  
+**Document ID:** MMVA-MCL-001
+
+**Status:** Canonical integration contract; implementation work in progress
+
+**Repository:** `MitenMehta/miten-mehta`
+
+**Integration branch:** `integrate/virtual-miten-launch`
+
+**Production branch:** `main`
 **Last updated:** 2026-08-15
 
 ## 1. Authority and evidence rule
@@ -19,14 +23,16 @@ Every claim must be labelled **DOCUMENTED**, **CODED**, **TESTED**, **DEPLOYED**
 
 ### Track A — MitenMehta.com and Cloudflare
 
-**Owner:** Codex website/edge session  
+**Owner:** Codex website/edge session
+
 **Branch:** `feature/mitenmehta-launch`
 
 Track A owns the website, browser security, dependencies, quality gates, SEO/social readiness, Cloudflare Pages/DNS/TLS/CSP/cache/security/observability, OpenTofu and edge CI/CD, the browser API client, and degraded-mode behavior. It must not implement or certify the internal OrchestrAIOS learning system.
 
 ### Track B — OrchestrAIOS and Ewaya bridge
 
-**Owner:** Separate Codex OrchestrAIOS session  
+**Owner:** Separate Codex OrchestrAIOS session
+
 **Branch:** `feature/orchestrai-ewaya-bridge`
 
 Track B owns the authenticated agent API and streaming transport, model routing, governed retrieval, OrchestrAIOS availability, supported MCP and OAuth/OIDC, tool controls, durable workflows, retries/DLQ/idempotency, auditability, and the governed Failures–Feedback–Research pipeline. It owns only the Ewaya bridge, not the future Ewaya UI specification. It must not change the MitenMehta.com UI except through a reviewed contract change.
