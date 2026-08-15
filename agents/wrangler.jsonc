@@ -1,56 +1,16 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "orchestrai-edge-gateway",
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "orchestrai-ewaya-bridge",
   "main": "src/edge_gateway.ts",
-  "compatibility_date": "2026-07-15",
+  "compatibility_date": "2026-08-15",
   "compatibility_flags": ["nodejs_compat"],
-  "durable_objects": {
-    "bindings": [
-      {
-        "name": "OrchestrAIAgent",
-        "class_name": "OrchestrAIAgent"
-      }
-    ]
-  },
-  "migrations": [
-    {
-      "tag": "v1",
-      "new_sqlite_classes": ["OrchestrAIAgent"]
-    }
-  ],
-  "vectorize": [
-    {
-      "binding": "VECTORIZE",
-      "index_name": "orchestrai-cvo-rag"
-    }
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "orchestrai-sessions",
-      "database_id": "947cf9fe-1801-47a5-87d1-353d3921b35a"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "AUDIT_LOGS",
-      "bucket_name": "orchestrai-audit-logs"
-    }
-  ],
-  "workflows": [
-    {
-      "name": "orchestrai-workflow",
-      "binding": "WORKFLOW",
-      "class_name": "OrchestrAIWorkflow"
-    }
-  ],
-  "observability": {
-    "enabled": true
-  },
-  "routes": [
-    {
-      "pattern": "agents.orchestraios.com",
-      "custom_domain": true
-    }
-  ]
+  "vars": { "MODEL_PRIMARY": "@cf/meta/llama-3.1-8b-instruct", "MODEL_FALLBACKS": "", "REQUEST_TIMEOUT_MS": "30000", "RELEASE_VERSION": "unreleased", "OIDC_ISSUER": "https://REPLACE_AT_DEPLOY", "OIDC_AUDIENCE": "virtual-miten", "OIDC_JWKS_URL": "" },
+  "services": [{ "binding": "ORCHESTRAI", "service": "orchestrai-runtime" }, { "binding": "EWAYA", "service": "ewaya-bridge" }],
+  "kv_namespaces": [{ "binding": "AUTH_CACHE", "id": "REPLACE_AT_DEPLOY" }, { "binding": "CANCELLATIONS", "id": "REPLACE_AT_DEPLOY" }],
+  "d1_databases": [{ "binding": "DB", "database_name": "orchestrai-sessions", "database_id": "947cf9fe-1801-47a5-87d1-353d3921b35a" }],
+  "vectorize": [{ "binding": "VECTORIZE", "index_name": "orchestrai-cvo-rag" }],
+  "queues": { "producers": [{ "binding": "WORK_QUEUE", "queue": "orchestrai-governed-work" }, { "binding": "DLQ", "queue": "orchestrai-governed-work-dlq" }] },
+  "workflows": [{ "name": "orchestrai-workflow", "binding": "WORKFLOW", "class_name": "OrchestrAIWorkflow" }],
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+  "routes": [{ "pattern": "agents.orchestraios.com", "custom_domain": true }]
 }

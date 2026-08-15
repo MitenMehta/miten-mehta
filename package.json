@@ -9,11 +9,12 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "typecheck": "tsc -b --pretty false",
+    "typecheck:bridge": "wrangler types --config agents/wrangler.jsonc && tsc -p agents/tsconfig.json --pretty false",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:public": "node scripts/verify-public-assets.mjs",
     "audit:prod": "npm audit --omit=dev --audit-level=high",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run test:public && npm run build",
+    "check": "npm run lint && npm run typecheck && npm run typecheck:bridge && npm run test && npm run test:public && npm run build",
     "check:full": "npm run check && npm run test:e2e",
     "preview": "vite preview"
   },
@@ -95,6 +96,7 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "8.2.1",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "wrangler": "^4.123.0"
   }
 }

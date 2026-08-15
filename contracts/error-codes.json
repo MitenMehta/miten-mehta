@@ -1,0 +1,1 @@
+{"version":"1.0.0","errors":[{"code":"INVALID_REQUEST","status":400},{"code":"UNAUTHORIZED","status":401},{"code":"FORBIDDEN","status":403},{"code":"CONSENT_REQUIRED","status":403},{"code":"NOT_FOUND","status":404},{"code":"RATE_LIMITED","status":429},{"code":"UPSTREAM_UNAVAILABLE","status":503},{"code":"REQUEST_TIMEOUT","status":504}]}
