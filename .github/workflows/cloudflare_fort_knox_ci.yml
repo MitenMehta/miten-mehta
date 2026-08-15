@@ -1,76 +1,12 @@
-name: Cloudflare Fort Knox Zone Hardening & Drift Detection
+name: Retired three-zone Cloudflare apply
 
-on:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * *' # Daily at midnight UTC
-  workflow_dispatch:
+on: workflow_dispatch
+
+permissions:
+  contents: read
 
 jobs:
-  audit-and-apply:
-    name: Audit, Validate & Apply Infrastructure
+  retired:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup OpenTofu
-        uses: opentofu/setup-opentofu@v1
-        with:
-          tofu_version: 1.8.1
-
-      - name: Restore OpenTofu State
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            terraform/terraform.tfstate
-            terraform/terraform.tfstate.backup
-          key: cloudflare-tofu-state-${{ github.ref_name }}-${{ github.run_id }}
-          restore-keys: |
-            cloudflare-tofu-state-${{ github.ref_name }}-
-
-      - name: Initialize OpenTofu
-        working-directory: ./terraform
-        run: tofu init -backend=false
-
-      - name: Validate OpenTofu HCL
-        working-directory: ./terraform
-        run: tofu validate
-
-      - name: Reconcile Existing Cloudflare Resources
-        working-directory: ./terraform
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-        run: bash ./bootstrap_cloudflare_state.sh
-
-      - name: Run OpenTofu Plan & Apply
-        working-directory: ./terraform
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-        run: |
-          if [ -n "$CF_API_TOKEN" ]; then
-            echo "[+] Executing live tofu apply..."
-            tofu apply -auto-approve -lock=false
-          else
-            echo "[!] CF_API_TOKEN secret not set. Skipping live tofu apply."
-          fi
-
-      - name: Save OpenTofu State
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            terraform/terraform.tfstate
-            terraform/terraform.tfstate.backup
-          key: cloudflare-tofu-state-${{ github.ref_name }}-${{ github.run_id }}
-
-      - name: Run 22-Point Security Audit
-        env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        run: |
-          python3 scripts/ops/cloudflare_fort_knox_hardening/cloudflare_22_point_live_audit.py
+      - run: echo "This cross-zone auto-apply workflow is retired. Use track-a-quality.yml and a reviewed, state-backed infrastructure promotion."

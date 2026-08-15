@@ -68,7 +68,7 @@ resource "cloudflare_ruleset" "mitenmehta_headers" {
       headers {
         name      = "Content-Security-Policy"
         operation = "set"
-        value     = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.cloudflare.com; frame-ancestors 'none'"
+        value     = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
       }
       headers {
         name      = "Referrer-Policy"
@@ -88,7 +88,12 @@ resource "cloudflare_ruleset" "mitenmehta_headers" {
       headers {
         name      = "X-Frame-Options"
         operation = "set"
-        value     = "SAMEORIGIN"
+        value     = "DENY"
+      }
+      headers {
+        name      = "Permissions-Policy"
+        operation = "set"
+        value     = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
       }
     }
     expression  = "true"
