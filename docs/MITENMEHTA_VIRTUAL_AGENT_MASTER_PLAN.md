@@ -156,6 +156,26 @@ Every handoff and AGY attestation must identify repository and commit SHA, branc
 
 > Continuously review every issue and PR in this repository against this MCL. Confirm correct branch/base, single-track scope, linked requirement/control, contract compatibility, test coverage, security impact, migration and rollback, evidence for the exact commit, and accurate DOCUMENTED/CODED/TESTED/DEPLOYED/OPERATIONAL status. Detect duplicate artifacts, stale generated files, conflicting SSOT claims, unsupported SLA/health statements, dependency risk, secret exposure, weakened CI, skipped tests and unauthorized Cloudflare changes. Keep PRs small and organized. Request changes when a required gate or evidence item is absent. Never merge, bypass protection, modify secrets, dismiss findings, or declare production operational. Produce a concise PR checklist with PASS/FAIL/BLOCKED and the exact owner/action/evidence for every blocker.
 
-## 10. Change control
+### GitHub control-plane setup and drift prompt
+
+> Audit the repository against this MCL and inspect the live GitHub configuration. Verify automatic Copilot code review, rulesets, protected branches, required checks, required approvals, review-conversation resolution, CODEOWNERS, force-push/deletion prevention, PR templates, Actions permissions, environment approvals, and the integration-to-main promotion path. Distinguish file-backed controls from GitHub server-side settings. Implement only safe file-backed changes on a feature branch. For server-side changes, produce an exact least-privilege proposal and wait for explicit repository-administrator approval. Re-read the live configuration after any approved change and return PASS/FAIL/BLOCKED with evidence. Never claim that a prompt or repository file configured a server-side GitHub setting.
+
+## 10. Current GitHub governance baseline
+
+Read-only GitHub API inspection on 2026-08-15 established:
+
+| Control | Fresh result |
+|---|---|
+| Repository rulesets | **BLOCKED** — none configured |
+| `main` branch protection | **BLOCKED** — branch is not protected |
+| GitHub Actions | **PARTIAL** — enabled with all actions allowed |
+| Third-party action SHA pinning | **BLOCKED** — not required |
+| Automatic Copilot review | **NOT VERIFIED** — repository setting still requires inspection |
+| CODEOWNERS | **PROPOSED** in the governance PR |
+| PR evidence template | **PROPOSED** in the governance PR |
+
+These are time-sensitive observations and must be re-read after every approved GitHub configuration change. A merged prompt, CODEOWNERS file, or PR template does not substitute for server-side rulesets and branch protection.
+
+## 11. Change control
 
 Changes to scope, architecture, contracts, branch policy, security gates or evidence definitions require a PR updating this document. Chat statements do not supersede the merged MCL.
