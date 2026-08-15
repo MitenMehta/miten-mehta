@@ -1,0 +1,14 @@
+version: 1.0.0
+issuerConfiguration: OIDC discovery or explicit JWKS URL
+scopes:
+  agent:invoke: Submit an agent response request
+  agent:cancel: Request cancellation of a response
+  mcp:connect: Establish MCP Streamable HTTP session
+  mcp:tools:read: List available tools
+  tool:orchestrai.search_approved_knowledge: Search approved knowledge
+  tool:ewaya.handoff: Create a consented Ewaya handoff
+  learning:submit: Stage a governed learning candidate
+consents:
+  ewaya.handoff: Required for every token allowed to create an Ewaya handoff
+revocation:
+  mechanism: OIDC token expiry plus jti deny-list in AUTH_CACHE

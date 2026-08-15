@@ -1,64 +1,45 @@
 openapi: 3.1.0
-info:
-  title: Virtual Miten Agent API
-  version: 0.1.0
-  description: Track A consumer contract. Track B owns the authenticated implementation.
-servers:
-  - url: https://mitenmehta.com/api
-paths:
-  /agent:
-    post:
-      operationId: respondToVirtualMitenPrompt
-      security:
-        - virtualMitenSession: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AgentRequest'
-      responses:
-        '200':
-          description: Governed response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AgentResponse'
-        '400': { description: Invalid request }
-        '401': { description: Missing or invalid session }
-        '403': { description: Request denied by policy }
-        '429': { description: Rate or cost limit exceeded }
-        '503': { description: Governed service unavailable }
+info: { title: Virtual Miten Agent Bridge API, version: 1.0.0 }
+servers: [{ url: https://agents.orchestraios.com }]
 components:
   securitySchemes:
-    virtualMitenSession:
-      type: apiKey
-      in: cookie
-      name: __Host-miten_session
-      description: Short-lived Secure, HttpOnly, SameSite=Strict session minted by the same-origin gateway.
+    oidc: { type: openIdConnect, openIdConnectUrl: "${OIDC_ISSUER}/.well-known/openid-configuration" }
   schemas:
     AgentRequest:
       type: object
       additionalProperties: false
-      required: [message, mode, session_id]
+      required: [input]
       properties:
-        message: { type: string, minLength: 1, maxLength: 2000 }
-        mode: { type: string, enum: [aria, orion] }
-        session_id: { type: string, format: uuid }
-    AgentResponse:
-      type: object
-      additionalProperties: false
-      required: [request_id, status, message, citations]
-      properties:
-        request_id: { type: string }
-        status: { type: string, enum: [completed, degraded] }
-        message: { type: string }
-        citations:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            required: [title, url]
-            properties:
-              title: { type: string }
-              url: { type: string, format: uri }
+        input: { type: string, minLength: 1, maxLength: 16000 }
+        stream: { type: boolean, default: true }
+        model: { type: string }
+        knowledge:
+          type: object
+          additionalProperties: false
+          properties: { query: { type: string, maxLength: 2000 }, topK: { type: integer, minimum: 1, maximum: 10 } }
+paths:
+  /v1/agent/responses:
+    post:
+      operationId: createAgentResponse
+      security: [{ oidc: [agent:invoke] }]
+      requestBody: { required: true, content: { application/json: { schema: { $ref: '#/components/schemas/AgentRequest' } } } }
+      responses:
+        '200': { description: Server-sent event stream, content: { text/event-stream: { schema: { type: string } } } }
+        '401': { description: Authentication failed }
+        '429': { description: Quota exceeded }
+        '504': { description: Timeout }
+  /v1/agent/responses/{responseId}:
+    delete:
+      operationId: cancelAgentResponse
+      security: [{ oidc: [agent:cancel] }]
+      parameters: [{ name: responseId, in: path, required: true, schema: { type: string } }]
+      responses: { '202': { description: Cancellation requested } }
+  /mcp:
+    post:
+      operationId: mcpStreamableHttp
+      security: [{ oidc: [mcp:connect] }]
+      responses: { '200': { description: MCP JSON-RPC response }, '202': { description: Notification accepted } }
+  /health/live:
+    get: { responses: { '200': { description: Process is alive } } }
+  /health/ready:
+    get: { responses: { '200': { description: Dependencies ready }, '503': { description: Dependency degraded } } }

@@ -8,6 +8,7 @@ export default tseslint.config(
   {
     ignores: [
       "dist",
+      "worker-configuration.d.ts",
       "agents/**",
       "mcp/**",
       "src/edge_gateway.ts",

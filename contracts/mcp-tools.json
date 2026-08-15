@@ -1,0 +1,1 @@
+{"version":"1.0.0","protocolVersion":"2025-06-18","transport":"streamable-http","tools":[{"name":"orchestrai.search_approved_knowledge","requiredScope":"tool:orchestrai.search_approved_knowledge","consent":null,"readOnly":true},{"name":"ewaya.handoff","requiredScope":"tool:ewaya.handoff","consent":"ewaya.handoff","readOnly":false}]}
