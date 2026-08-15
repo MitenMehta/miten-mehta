@@ -1,5 +1,7 @@
 # OrchestrAI OS — Master Artifact Ledger (MAL v2.5.0)
 
+> **MitenMehta.com Virtual AI Agent launch authority:** The canonical collaboration, branch, integration, evidence, AGY verification, and production-promotion plan is [`docs/MITENMEHTA_VIRTUAL_AGENT_MASTER_PLAN.md`](MITENMEHTA_VIRTUAL_AGENT_MASTER_PLAN.md). For this launch, its fresh-evidence status rules supersede conflicting historical certification or operational claims in this ledger.
+
 **Document ID**: MAL-SSOT-v2.5.0  
 **Status**: CANONICAL SINGLE SOURCE OF TRUTH (SSOT) INDEX & TWIN-ENGINE NAVIGATION MAP  
 **Release Version**: v2.5.0 — Sovereign Edge & AI IDE Architecture  
