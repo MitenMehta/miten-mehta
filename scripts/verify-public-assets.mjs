@@ -36,5 +36,6 @@ for (const forbidden of ["unsafe-eval", "placeholder-supabase", "99.999%", "237 
 
 assert.ok(!trackingHook.includes("innerHTML"), "tracking hook may not inject HTML");
 assert.ok(!trackingHook.includes("createElement('script')"), "tracking hook may not execute database scripts");
+assert.ok(!headers.includes("agents.orchestraios.com"), "browser CSP must use the same-origin agent gateway");
 
 console.log(`public asset verification passed (${locations.length} sitemap URLs)`);
