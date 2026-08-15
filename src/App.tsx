@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,30 +7,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminLayout } from "@/pages/admin/AdminLayout";
-import { useTrackingCodes } from "@/hooks/use-tracking-codes";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
-import Articles from "./pages/Articles";
-import ArticleDetail from "./pages/ArticleDetail";
-import OrbitLanding from "./pages/OrbitLanding";
-import OrbitThankYou from "./pages/OrbitThankYou";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import TrackingCodes from "./pages/admin/TrackingCodes";
-import LinkedInPosts from "./pages/admin/LinkedInPosts";
-import LeadsCRM from "./pages/admin/LeadsCRM";
-import NotFound from "./pages/NotFound";
-import Onboarding from "./pages/Onboarding";
-import CommunityDashboard from "./pages/community/CommunityDashboard";
-import CommunityMembers from "./pages/community/CommunityMembers";
-import Notifications from "./pages/community/Notifications";
+const Auth = lazy(() => import("./pages/Auth"));
+const Articles = lazy(() => import("./pages/Articles"));
+const ArticleDetail = lazy(() => import("./pages/ArticleDetail"));
+const OrbitLanding = lazy(() => import("./pages/OrbitLanding"));
+const OrbitThankYou = lazy(() => import("./pages/OrbitThankYou"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const TrackingCodes = lazy(() => import("./pages/admin/TrackingCodes"));
+const LinkedInPosts = lazy(() => import("./pages/admin/LinkedInPosts"));
+const LeadsCRM = lazy(() => import("./pages/admin/LeadsCRM"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const CommunityDashboard = lazy(() => import("./pages/community/CommunityDashboard"));
+const CommunityMembers = lazy(() => import("./pages/community/CommunityMembers"));
+const Notifications = lazy(() => import("./pages/community/Notifications"));
 
 const queryClient = new QueryClient();
-
-// Component to load tracking codes
-function TrackingCodesLoader() {
-  useTrackingCodes();
-  return null;
-}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -37,9 +31,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <TrackingCodesLoader />
         <AuthProvider>
-          <Routes>
+          <Suspense fallback={<div className="min-h-screen bg-white p-8 text-sm text-zinc-600">Loading…</div>}>
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/articles" element={<Articles />} />
@@ -122,7 +116,8 @@ const App = () => (
             />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
+            </Routes>
+          </Suspense>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

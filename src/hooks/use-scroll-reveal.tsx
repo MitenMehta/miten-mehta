@@ -5,13 +5,14 @@ export const useScrollReveal = (options = {}) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const target = ref.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           // Once visible, keep it visible
-          if (ref.current) {
-            observer.unobserve(ref.current);
+          if (target) {
+            observer.unobserve(target);
           }
         }
       },
@@ -21,13 +22,13 @@ export const useScrollReveal = (options = {}) => {
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (target) {
+      observer.observe(target);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (target) {
+        observer.unobserve(target);
       }
     };
   }, [options]);

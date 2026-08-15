@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { getErrorMessage } from '@/lib/errors';
 
 interface Article {
   id: string;
@@ -100,8 +101,8 @@ export default function AdminDashboard() {
       setIsDialogOpen(false);
       resetForm();
       fetchArticles();
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to save article');
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, 'Failed to save article'));
       console.error('Error:', error);
     }
   };

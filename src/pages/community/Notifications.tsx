@@ -6,6 +6,25 @@ import { useAuth } from "@/hooks/use-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
 import { Check, X, Loader2 } from "lucide-react";
+import { getErrorMessage } from "@/lib/errors";
+
+type ConnectionRequest = {
+    id: string;
+    created_at: string;
+    requester: {
+        id: string;
+        full_name: string | null;
+        headline: string | null;
+        avatar_url: string | null;
+    };
+};
+
+type RequesterProfile = {
+    user_id: string;
+    full_name: string | null;
+    headline: string | null;
+    avatar_url: string | null;
+};
 
 export default function Notifications() {
     const { user } = useAuth();
@@ -17,21 +36,31 @@ export default function Notifications() {
         queryFn: async () => {
             const { data, error } = await supabase
                 .from('connection_requests')
-                .select(`
-          id,
-          created_at,
-          requester:requester_id (
-            id,
-            full_name,
-            headline,
-            avatar_url
-          )
-        `)
+                .select('id, created_at, requester_id')
                 .eq('receiver_id', user?.id)
                 .eq('status', 'pending');
 
             if (error) throw error;
-            return data;
+            const requesterIds = data.map((request) => request.requester_id);
+            const { data: profiles, error: profileError } = requesterIds.length
+                ? await supabase
+                    .from('profiles')
+                    .select('user_id, full_name, headline, avatar_url')
+                    .in('user_id', requesterIds)
+                : { data: [], error: null };
+
+            if (profileError) throw profileError;
+            const typedProfiles = (profiles ?? []) as RequesterProfile[];
+            const profilesByUserId = new Map<string, RequesterProfile>(
+                typedProfiles.map((profile) => [profile.user_id, profile] as const),
+            );
+
+            return data.flatMap((request): ConnectionRequest[] => {
+                const requester = profilesByUserId.get(request.requester_id);
+                return requester
+                    ? [{ id: request.id, created_at: request.created_at, requester: { id: request.requester_id, ...requester } }]
+                    : [];
+            });
         },
         enabled: !!user,
     });
@@ -50,8 +79,8 @@ export default function Notifications() {
             queryClient.invalidateQueries({ queryKey: ['community-members'] });
             toast.success("Request updated");
         },
-        onError: (err: any) => {
-            toast.error(err.message);
+        onError: (error: unknown) => {
+            toast.error(getErrorMessage(error, "Unable to update request"));
         }
     });
 
@@ -65,7 +94,7 @@ export default function Notifications() {
                 <p className="text-muted-foreground text-center py-10">No pending connection requests.</p>
             ) : (
                 <div className="space-y-4">
-                    {requests?.map((req: any) => (
+                    {requests?.map((req) => (
                         <Card key={req.id}>
                             <CardContent className="flex items-center justify-between p-6">
                                 <div className="flex items-center gap-4">

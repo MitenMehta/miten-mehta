@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { Plus, Edit, Trash2, ExternalLink } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { getErrorMessage } from '@/lib/errors';
 
 interface LinkedInPost {
   id: string;
@@ -96,8 +97,8 @@ export default function LinkedInPosts() {
       setIsDialogOpen(false);
       resetForm();
       fetchPosts();
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to save post');
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, 'Failed to save post'));
       console.error('Error:', error);
     }
   };

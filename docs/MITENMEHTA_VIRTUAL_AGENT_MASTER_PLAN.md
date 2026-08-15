@@ -179,3 +179,24 @@ These are time-sensitive observations and must be re-read after every approved G
 ## 11. Change control
 
 Changes to scope, architecture, contracts, branch policy, security gates or evidence definitions require a PR updating this document. Chat statements do not supersede the merged MCL.
+
+## 12. Track A implementation ledger
+
+This ledger records the state of the current Track A feature branch. It does not certify the integration or production environments.
+
+| Control | State | Current evidence |
+|---|---|---|
+| Dynamic browser script execution | **TESTED** | Database-driven script injection removed; public-asset verifier rejects a regression |
+| Dependency security | **TESTED** | Clean `npm ci`; production `npm audit` reports zero vulnerabilities |
+| Static quality | **TESTED** | ESLint, TypeScript and Vite production build pass |
+| Unit and client-contract behavior | **TESTED** | Five tests cover unavailable, valid and upstream-failure paths plus truthful UI behavior |
+| Browser bundle size | **TESTED** | Route splitting reduced the main bundle from approximately 930 KB to approximately 245 KB before gzip |
+| SEO and social assets | **TESTED** | Same-origin sitemap routes, metadata, favicon, security.txt and exact 1200 by 630 Open Graph image pass validation |
+| Browser agent integration | **CODED / BLOCKED** | Same-origin, schema-validated, timeout-bounded client is implemented; a real authenticated Track B endpoint is still required |
+| Cloudflare headers | **CODED** | Pages `_headers` and Miten-only OpenTofu policy use a restrictive CSP and security headers; staging deployment evidence remains required |
+| Infrastructure validation | **TESTED / BLOCKED** | Isolated Miten-only OpenTofu configuration formats and validates; remote state, imports and a reviewed plan are required before apply |
+| CI/CD | **CODED** | Quality workflow and manual fail-safe replacement for unattended infrastructure apply are present; GitHub-run receipt remains required |
+| Accessibility and browser E2E | **TESTED / PARTIAL** | Chromium flow, keyboard access and zero serious/critical axe findings pass; manual screen-reader review remains required |
+| Availability and five-nines | **BLOCKED** | No five-nines claim is permitted without measured SLI/SLO evidence over an agreed observation window |
+
+Promotion requires fresh evidence for the exact commit. A local PASS is not a deployment or operational PASS.

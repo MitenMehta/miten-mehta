@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -19,7 +19,6 @@ interface Article {
 
 export default function Articles() {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('newest');
@@ -27,10 +26,6 @@ export default function Articles() {
   useEffect(() => {
     fetchArticles();
   }, []);
-
-  useEffect(() => {
-    filterAndSortArticles();
-  }, [articles, searchQuery, sortBy]);
 
   const fetchArticles = async () => {
     try {
@@ -49,7 +44,7 @@ export default function Articles() {
     }
   };
 
-  const filterAndSortArticles = () => {
+  const filteredArticles = useMemo(() => {
     let filtered = [...articles];
 
     // Apply search filter
@@ -80,8 +75,8 @@ export default function Articles() {
       }
     });
 
-    setFilteredArticles(filtered);
-  };
+    return filtered;
+  }, [articles, searchQuery, sortBy]);
 
   const clearFilters = () => {
     setSearchQuery('');

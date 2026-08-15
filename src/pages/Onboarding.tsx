@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { getErrorMessage } from "@/lib/errors";
 
 const onboardingSchema = z.object({
     full_name: z.string().min(2, "Name must be at least 2 characters"),
@@ -95,9 +96,9 @@ export default function Onboarding() {
 
             window.location.href = "/community";
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Onboarding error:", error);
-            toast.error(error.message || "Failed to update profile");
+            toast.error(getErrorMessage(error, "Failed to update profile"));
         }
     };
 

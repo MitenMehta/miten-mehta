@@ -91,7 +91,7 @@ export default function LeadsCRM() {
 
   // Filter and sort leads
   const filteredAndSortedLeads = useMemo(() => {
-    let filtered = leads.filter(lead => {
+    const filtered = leads.filter(lead => {
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();

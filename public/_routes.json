@@ -1,5 +1,15 @@
 {
   "version": 1,
   "include": ["/*"],
-  "exclude": ["/sitemap.xml", "/robots.txt", "/assets/*"]
+  "exclude": [
+    "/assets/*",
+    "/caio-executive-playbook.html",
+    "/caio-executive-playbook.pdf",
+    "/favicon.svg",
+    "/miten-mehta-photo.jpeg",
+    "/og-miten-mehta.png",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/.well-known/security.txt"
+  ]
 }

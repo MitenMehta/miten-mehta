@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -21,13 +21,7 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (slug) {
-      fetchArticle();
-    }
-  }, [slug]);
-
-  const fetchArticle = async () => {
+  const fetchArticle = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('articles')
@@ -50,7 +44,13 @@ export default function ArticleDetail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate, slug]);
+
+  useEffect(() => {
+    if (slug) {
+      void fetchArticle();
+    }
+  }, [fetchArticle, slug]);
 
   const estimateReadTime = (content: string) => {
     const wordsPerMinute = 200;

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mitenmehta.com/contracts/health-contract.json",
+  "title": "Virtual Miten Dependency Health",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "checked_at", "dependencies"],
+  "properties": {
+    "status": { "enum": ["healthy", "degraded", "unavailable"] },
+    "checked_at": { "type": "string", "format": "date-time" },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "latency_ms"],
+        "properties": {
+          "status": { "enum": ["healthy", "degraded", "unavailable"] },
+          "latency_ms": { "type": "number", "minimum": 0 }
+        }
+      }
+    }
+  }
+}
