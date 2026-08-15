@@ -3,6 +3,16 @@ node_modules/
 dist/
 dist-ssr/
 *.local
+*.tsbuildinfo
+
+# OpenTofu/Terraform local state and downloaded providers
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+playwright-report/
+test-results/
 
 # Environment variables & Tokens (LAW-50 Zero Secret Leakage)
 .env
