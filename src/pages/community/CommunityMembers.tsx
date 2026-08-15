@@ -7,6 +7,16 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
 import { Loader2, UserPlus, Check, Clock } from "lucide-react";
+import { getErrorMessage } from "@/lib/errors";
+
+type MemberProfile = {
+    id: string;
+    user_id: string;
+    full_name: string | null;
+    headline: string | null;
+    avatar_url: string | null;
+    linkedin_id: string | null;
+};
 
 export default function CommunityMembers() {
     const { slug } = useParams();
@@ -35,19 +45,23 @@ export default function CommunityMembers() {
             // Get members
             const { data: memberData, error: memberError } = await supabase
                 .from('community_members')
-                .select(`
-          user_id,
-          profiles:user_id (
-            id,
-            full_name,
-            headline,
-            avatar_url,
-            linkedin_id
-          )
-        `)
+                .select('user_id')
                 .eq('community_id', community?.id);
 
             if (memberError) throw memberError;
+
+            const memberIds = memberData.map((member) => member.user_id);
+            const { data: profiles, error: profileError } = memberIds.length
+                ? await supabase
+                    .from('profiles')
+                    .select('id, user_id, full_name, headline, avatar_url, linkedin_id')
+                    .in('user_id', memberIds)
+                : { data: [], error: null };
+
+            if (profileError) throw profileError;
+            const profilesByUserId = new Map(
+                (profiles as MemberProfile[]).map((profile) => [profile.user_id, profile]),
+            );
 
             // Get connection requests involving current user
             const { data: requests, error: reqError } = await supabase
@@ -58,12 +72,13 @@ export default function CommunityMembers() {
             if (reqError) throw reqError;
 
             // Merge data
-            return memberData.map((item: any) => {
-                const profile = item.profiles;
+            return memberData.flatMap((item) => {
+                const profile = profilesByUserId.get(item.user_id);
+                if (!profile) return [];
                 // Find request status
                 const request = requests?.find(
-                    r => (r.requester_id === user?.id && r.receiver_id === profile.id) ||
-                        (r.receiver_id === user?.id && r.requester_id === profile.id)
+                    r => (r.requester_id === user?.id && r.receiver_id === profile.user_id) ||
+                        (r.receiver_id === user?.id && r.requester_id === profile.user_id)
                 );
 
                 let connectionStatus = 'none'; // none, pending, accepted, sent
@@ -75,6 +90,7 @@ export default function CommunityMembers() {
 
                 return {
                     ...profile,
+                    id: profile.user_id,
                     connectionStatus,
                     requestId: request?.id
                 };
@@ -98,8 +114,8 @@ export default function CommunityMembers() {
             queryClient.invalidateQueries({ queryKey: ['community-members'] });
             toast.success("Connection request sent!");
         },
-        onError: (err: any) => {
-            toast.error(err.message);
+        onError: (error: unknown) => {
+            toast.error(getErrorMessage(error, "Unable to send connection request"));
         }
     });
 

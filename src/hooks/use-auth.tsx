@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
+import { isSupabaseConfigured, supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -27,6 +27,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -88,6 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signIn = async (email: string, password: string) => {
+    if (!isSupabaseConfigured) throw new Error('Account access is not enabled in this preview.');
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -103,6 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (email: string, password: string, displayName?: string) => {
+    if (!isSupabaseConfigured) throw new Error('Account access is not enabled in this preview.');
     const redirectUrl = `${window.location.origin}/`;
 
     const { data, error } = await supabase.auth.signUp({
@@ -134,6 +141,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signInWithLinkedIn = async () => {
+    if (!isSupabaseConfigured) throw new Error('LinkedIn sign-in is not enabled in this preview.');
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'linkedin_oidc',
       options: {
@@ -148,6 +156,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
+    if (!isSupabaseConfigured) return;
     const { error } = await supabase.auth.signOut();
 
     if (error) {

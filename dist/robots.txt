@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://mitenmehta.com/sitemap.xml
-Sitemap: https://orchestraios.com/sitemap.xml

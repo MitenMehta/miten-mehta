@@ -8,6 +8,13 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:public": "node scripts/verify-public-assets.mjs",
+    "audit:prod": "npm audit --omit=dev --audit-level=high",
+    "check": "npm run lint && npm run typecheck && npm run test && npm run test:public && npm run build",
+    "check:full": "npm run check && npm run test:e2e",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -55,7 +62,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.61.1",
     "react-resizable-panels": "^2.1.9",
-    "react-router-dom": "^6.30.1",
+    "react-router-dom": "7.18.2",
     "recharts": "^2.15.4",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.0",
@@ -64,22 +71,30 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^9.32.0",
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/typography": "^0.5.16",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.4",
     "@types/node": "^22.16.5",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react-swc": "^3.11.0",
+    "@vitejs/plugin-react": "^6.0.5",
     "autoprefixer": "^10.4.21",
+    "browserslist": "^4.28.8",
+    "caniuse-lite": "^1.0.30001809",
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
-    "lovable-tagger": "^1.1.11",
+    "jsdom": "29.0.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
-    "vite": "^5.4.19"
+    "vite": "8.2.1",
+    "vitest": "^4.1.10"
   }
 }

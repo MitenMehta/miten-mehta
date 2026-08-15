@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Virtual Miten Agent API
+  version: 0.1.0
+  description: Track A consumer contract. Track B owns the authenticated implementation.
+servers:
+  - url: https://mitenmehta.com/api
+paths:
+  /agent:
+    post:
+      operationId: respondToVirtualMitenPrompt
+      security:
+        - virtualMitenSession: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentRequest'
+      responses:
+        '200':
+          description: Governed response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '400': { description: Invalid request }
+        '401': { description: Missing or invalid session }
+        '403': { description: Request denied by policy }
+        '429': { description: Rate or cost limit exceeded }
+        '503': { description: Governed service unavailable }
+components:
+  securitySchemes:
+    virtualMitenSession:
+      type: apiKey
+      in: cookie
+      name: __Host-miten_session
+      description: Short-lived Secure, HttpOnly, SameSite=Strict session minted by the same-origin gateway.
+  schemas:
+    AgentRequest:
+      type: object
+      additionalProperties: false
+      required: [message, mode, session_id]
+      properties:
+        message: { type: string, minLength: 1, maxLength: 2000 }
+        mode: { type: string, enum: [aria, orion] }
+        session_id: { type: string, format: uuid }
+    AgentResponse:
+      type: object
+      additionalProperties: false
+      required: [request_id, status, message, citations]
+      properties:
+        request_id: { type: string }
+        status: { type: string, enum: [completed, degraded] }
+        message: { type: string }
+        citations:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [title, url]
+            properties:
+              title: { type: string }
+              url: { type: string, format: uri }
